@@ -17476,6 +17476,30 @@ Epoch 50, Training Loss: 0.3018, Validation Loss: 0.3000, Accuracy: 0.9052, Prec
 
 </div>
 
+</div>
+<div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Proof-of-Limitation-of-MPNN-capturing-the-existence-of-$K_%7B3,3%7D$">Proof of Limitation of MPNN capturing the existence of $K_{3,3}$<a class="anchor-link" href="#Proof-of-Limitation-of-MPNN-capturing-the-existence-of-$K_%7B3,3%7D$">&#182;</a></h2><p>In this section, we want to sketch the proof of why our model with global readout could not capture $K_{3,3}$'s existence. Firstly, a complete bipartite graph with 3 nodes on each side should be expressed as 
+$$
+\exists v_1,\cdots, v_6 \in V_G : \left( \bigwedge_{1 \leq i &lt; j \leq 3} \neg ((v_i, v_j) \in E_G) \right) \land \left( \bigwedge_{4 \leq i &lt; j \leq 6} \neg ((v_i, v_j) \in E_G) \right) \land \left( \bigwedge_{\substack{1 \leq i \leq 3 \\ 4 \leq j \leq 6}} ((v_i, v_j) \in E_G) \right).
+$$</p>
+<p>In this form, the negation or the existence of an edge should be captured by MPNN with global readout. However, in our main text of the mini-project, we only defined our objective logic function to be
+$$
+\exists v_1,\cdots, v_6 \in V_G :  \left( \bigwedge_{\substack{1 \leq i \leq 3 \\ 4 \leq j \leq 6}} ((v_i, v_j) \in E_G) \right).
+$$
+as having the edges within the two parts of the graphs does not violate the requirement that $K_{3,3}$ is contained as a subgraph.</p>
+<p>Consider the following two examples:</p>
+<p><img src="img/k33.png" alt="K33" /> <img src="img/notk33.png" alt="NotK33" /></p>
+<p>Since we only provided the degree of the node as a valid initial feature to the MPNN model, we can see that the above two graphs have all the same &quot;color&quot; (every node has a degree of 3). As a result, the 1-wl test could not distinguish these two graphs even if they include non-neighour information. Provided that 1-wl is an upper limit for the expressive power of MPNNs, MPNNs could not distinguish these two graphs either.</p>
+<p>Clearly, the second graph is planar, which is the counter-class configured for the model. Any planar graphs containing graph 2 as a sub-structure may also be predicted as the same class as $K_{3,3}$. This concludes that MPNNs are not expressive enough to distinguish $K_{3,3}$ from planar graphs as observed in our previous experiment.</p>
+
+</div>
+</div>
+</div>
 </div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
